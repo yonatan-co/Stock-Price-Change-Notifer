@@ -3,12 +3,13 @@ import time
 import yagmail
 import os 
 
-my_secret = os.environ['PASSWORD']
+password = os.environ['PASSWORD']
+sender = os.environ['MY_EMAIL']
 
-sender = 'y.cohen949@gmail.com'
+
 reciver = '3dh0rnx3@10mail.tk'
 
-yag = yagmail.SMTP(user=sender, password=my_secret)
+yag = yagmail.SMTP(user=sender, password=password)
 
 def get_drvier():
   # Set options to make browsing easier
