@@ -7,7 +7,7 @@ password = os.environ['PASSWORD']
 sender = os.environ['MY_EMAIL']
 
 
-reciver = '3dh0rnx3@10mail.tk'
+reciver = os.environ['EMAIL_RECIVER']
 
 yag = yagmail.SMTP(user=sender, password=password)
 
@@ -33,17 +33,20 @@ def clean_price_change(text):
 
 def main():
   driver = get_drvier()
-  while True:
-    time.sleep(10)
-    price_change = clean_price_change(driver.find_element(by='xpath', value='/html/body/div[2]/div/section[1]/div/div/div[2]/span[2]').text)
-    time.sleep(2)
-    if price_change < -0.10:
-      content =  f"""hello, we want to update you that the price of a stock you own has changed by {str(price_change) + '%'}"""
-      yag.send(to=reciver, contents=content)
-      print(f"""email sent to:{reciver} \n email content:{content}""")
-      break
-    else:
-      print ('price change is under control')
+  
+  time.sleep(10)
+  price_change = clean_price_change(driver.find_element(by='xpath', value='/html/body/div[2]/div/section[1]/div/div/div[2]/span[2]').text)
+  time.sleep(2)
+  
+  if price_change < -0.10:
+    content =  f"""hello, we want to update you that the price of the stock you own has changed by {str(price_change)}%"""
+    yag.send(to=reciver, contents=content)
+    print(f"""email sent to:{reciver} \n email content:{content}""")
+  else:
+    content = f"""hello, we want to update you that the price of the stock you own is stable."""
+    yag.send(to=reciver, contents=content)
+    print(f"""email sent to:{reciver} \n email content:{content}""")
+      
       
 
 print(main())
