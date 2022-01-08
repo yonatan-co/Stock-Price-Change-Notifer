@@ -12,7 +12,6 @@ reciver = os.environ['EMAIL_RECIVER']
 yag = yagmail.SMTP(user=sender, password=password)
 
 def get_drvier():
-  # Set options to make browsing easier
   options = webdriver.ChromeOptions()
   options.add_argument("disable-infobars")
   options.add_argument("start-maximized")
